@@ -5,10 +5,10 @@ import 'package:flutter_starter/api/firebase/firebase_authentication.dart';
 class FirebaseFirestoreApi {
   final _db = Firestore.instance;
 
-  Future<List<DocumentSnapshot>> getAllBabies() async {
-    FirebaseUser user = await FirebaseAuthenticator().getCurrentUser();
-    Query query = _db.collection("baby").where("author", isEqualTo: user.uid);
-    QuerySnapshot querySnapshot = await query.getDocuments();
-    return querySnapshot.documents;
+  Stream<QuerySnapshot> getAllBabies() {
+    String userId = FirebaseAuthenticator().user.uid;
+    Query query = _db.collection("baby").where("author", isEqualTo: userId);
+    Stream<QuerySnapshot> querySnapshot = query.snapshots();
+    return querySnapshot;
   }
 }
