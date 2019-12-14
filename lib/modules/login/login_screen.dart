@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_starter/modules/home/home_bloc.dart';
+import 'package:flutter_starter/modules/home/home_screen.dart';
 import 'package:flutter_starter/modules/login/login_bloc.dart';
 import 'package:provider/provider.dart';
 
@@ -44,12 +46,37 @@ class LoginScreenState extends State<LoginScreen> {
     ));
   }
 
+  _incorrectPasswordDialog(BuildContext context) {
+    return AlertDialog(
+      title: Text("Incorrect Username or Password"),
+      actions: <Widget>[
+        FlatButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text("OK"),
+        )
+      ],
+    );
+  }
+
   _submitButton() {
     return Container(
         width: MediaQuery.of(context).size.width * 0.8,
         child: FlatButton(
           color: Colors.red,
-          onPressed: () => _bloc.submitForm(onFailure: () {}, onSuccess: () {}),
+          onPressed: () => _bloc.submitForm(
+            onFailure: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) =>
+                    _incorrectPasswordDialog(context),
+              );
+            },
+            onSuccess: () {
+              final HomeBloc homeBloc = HomeBloc();
+              Navigator.of(context)
+                  .pushNamed(HomeScreen.routeName, arguments: homeBloc);
+            },
+          ),
           child: Text("Log In"),
         ));
   }
