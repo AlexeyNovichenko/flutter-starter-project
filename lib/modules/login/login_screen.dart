@@ -79,7 +79,7 @@ class LoginScreenState extends State<LoginScreen> {
               child: _title(),
             ),
             Expanded(
-              flex: 4,
+              flex: 5,
               child: _form(),
             ),
             Expanded(
@@ -94,6 +94,7 @@ class LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     _init(context);
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       backgroundColor: Colors.black,
       body: SafeArea(child: _mainContent()),
     );
