@@ -22,7 +22,11 @@ class HomeScreenState extends State<HomeScreen> {
 
   _buildRow(DocumentSnapshot snapshot) {
     return ListTile(
-      title: Text(snapshot.data["name"]),
+      title: Container(
+        padding: EdgeInsets.all(10),
+        color: Colors.white,
+        child: Text(snapshot.data["name"]),
+      ),
     );
   }
 
@@ -38,18 +42,24 @@ class HomeScreenState extends State<HomeScreen> {
     return StreamBuilder(
       stream: FirebaseFirestoreApi().people,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        return Column(
-          children: <Widget>[
-            Expanded(
-              flex: 1,
-              child: Text("Existing Users"),
-            ),
-            Expanded(
-              flex: 1,
-              child: _usersList(snapshot),
-            )
-          ],
-        );
+        return Container(
+            margin: EdgeInsets.only(bottom: 20),
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                      child: Text(
+                    "Existing Users",
+                    style: TextStyle(color: Colors.white, fontSize: 30),
+                  )),
+                ),
+                Expanded(
+                  flex: 7,
+                  child: _usersList(snapshot),
+                )
+              ],
+            ));
       },
     );
   }
@@ -59,38 +69,47 @@ class HomeScreenState extends State<HomeScreen> {
       children: <Widget>[
         Expanded(
             flex: 1,
-            child: TextField(
-              controller: _bloc.newPersonName,
-              decoration: InputDecoration(
-                  border: InputBorder.none, hintText: 'Enter new person name'),
-            )),
-        Expanded(
-            flex: 1,
             child: Container(
-              width: MediaQuery.of(context).size.width * 0.80,
-              child: FlatButton(
-                color: Colors.red,
-                child: Text("Add"),
-                onPressed: () {
-                  _bloc.createPerson();
-                },
-              ),
-            ))
+                alignment: Alignment.center,
+                color: Colors.white,
+                child: TextField(
+                  controller: _bloc.newPersonName,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Enter new person name',
+                  ),
+                ))),
       ],
     );
   }
 
   _mainContent() {
     return Container(
-        margin: EdgeInsets.only(left: 30, right: 30),
+        margin: EdgeInsets.all(30),
         child: Container(
             child: Column(
           children: <Widget>[
-            Expanded(flex: 5, child: _usersSection()),
+            Expanded(
+              flex: 7,
+              child: _usersSection(),
+            ),
             Expanded(
               flex: 1,
               child: _createUserSection(),
-            )
+            ),
+            Expanded(
+                flex: 1,
+                child: Container(
+                  margin: EdgeInsets.only(top: 10),
+                  width: MediaQuery.of(context).size.width * 0.80,
+                  child: FlatButton(
+                    color: Colors.red,
+                    child: Text("Add"),
+                    onPressed: () {
+                      _bloc.createPerson();
+                    },
+                  ),
+                ))
           ],
         )));
   }
@@ -99,7 +118,7 @@ class HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     _init(context);
     return Scaffold(
-      backgroundColor: Colors.lightBlue,
+      backgroundColor: Colors.black,
       body: SafeArea(child: _mainContent()),
     );
   }
