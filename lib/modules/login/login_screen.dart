@@ -20,7 +20,10 @@ class LoginScreenState extends State<LoginScreen> {
     return Center(
       child: Text(
         "Firebase Starter Login",
-        style: TextStyle(fontSize: 30),
+        style: TextStyle(
+          fontSize: 30,
+          color: Colors.white,
+        ),
       ),
     );
   }
@@ -29,17 +32,27 @@ class LoginScreenState extends State<LoginScreen> {
     return Container(
         child: Column(
       children: <Widget>[
-        TextField(
-          controller: _bloc.email,
-          decoration: InputDecoration(
-              border: InputBorder.none, hintText: 'Enter your email'),
-        ),
+        Container(
+            padding: EdgeInsets.only(left: 10, right: 10),
+            color: Colors.white,
+            child: TextField(
+              controller: _bloc.email,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: 'Enter your email',
+              ),
+            )),
         Padding(padding: EdgeInsets.all(10)),
-        TextField(
-          controller: _bloc.password,
-          decoration: InputDecoration(
-              border: InputBorder.none, hintText: 'Enter your password'),
-        ),
+        Container(
+            padding: EdgeInsets.only(left: 10, right: 10),
+            color: Colors.white,
+            child: TextField(
+              controller: _bloc.password,
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: 'Enter your password',
+              ),
+            )),
       ],
     ));
   }
@@ -48,7 +61,7 @@ class LoginScreenState extends State<LoginScreen> {
     return Container(
         width: MediaQuery.of(context).size.width * 0.8,
         child: FlatButton(
-          color: Colors.red,
+          color: Colors.redAccent,
           onPressed: _bloc.submitForm,
           child: Text("Log In"),
         ));
@@ -56,7 +69,7 @@ class LoginScreenState extends State<LoginScreen> {
 
   _mainContent() {
     return Container(
-        margin: EdgeInsets.only(left: 30, right: 30),
+        margin: EdgeInsets.all(30),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -66,7 +79,7 @@ class LoginScreenState extends State<LoginScreen> {
               child: _title(),
             ),
             Expanded(
-              flex: 4,
+              flex: 5,
               child: _form(),
             ),
             Expanded(
@@ -81,6 +94,8 @@ class LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     _init(context);
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
+      backgroundColor: Colors.black,
       body: SafeArea(child: _mainContent()),
     );
   }
