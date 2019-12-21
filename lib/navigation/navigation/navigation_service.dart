@@ -23,4 +23,8 @@ class NavigationService {
     return navigatorKey.currentState
         .pushReplacementNamed(routeName, arguments: arguments);
   }
+
+  Future<dynamic> pop({Object returnValue}) async {
+    return navigatorKey.currentState.pop(returnValue);
+  }
 }
