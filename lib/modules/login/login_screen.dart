@@ -75,6 +75,10 @@ class LoginScreenState extends State<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Expanded(
+              flex: 1,
+              child: Image.asset("assets/images/food.png"),
+            ),
+            Expanded(
               flex: 4,
               child: _title(),
             ),
