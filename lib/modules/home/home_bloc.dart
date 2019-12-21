@@ -10,5 +10,6 @@ class HomeBloc {
       "votes": 0,
     });
     FirebaseFirestoreApi().createNewPerson(newPerson);
+    return Future.value();
   }
 }
